@@ -398,3 +398,221 @@ Ok, one module loaded.
 2022-06-16 16:15:31.092467544
 >>> :q
 Leaving GHCi.
+GHCi, version 9.0.2: https://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /home/risa/bprog2022/.ghci
+2022-06-23 14:56:16.411441237
+>>> :i Num
+type Num :: * -> Constraint
+class Num a where
+  (+) :: a -> a -> a
+  (-) :: a -> a -> a
+  (*) :: a -> a -> a
+  negate :: a -> a
+  abs :: a -> a
+  signum :: a -> a
+  fromInteger :: Integer -> a
+  {-# MINIMAL (+), (*), abs, signum, fromInteger, (negate | (-)) #-}
+  	-- Defined in ‘GHC.Num’
+instance Num NominalDiffTime
+  -- Defined in ‘time-1.9.3:Data.Time.Clock.Internal.NominalDiffTime’
+instance Num DiffTime
+  -- Defined in ‘time-1.9.3:Data.Time.Clock.Internal.DiffTime’
+instance Num Word -- Defined in ‘GHC.Num’
+instance Num Integer -- Defined in ‘GHC.Num’
+instance Num Int -- Defined in ‘GHC.Num’
+instance Num Float -- Defined in ‘GHC.Float’
+instance Num Double -- Defined in ‘GHC.Float’
+2022-06-23 14:56:30.308702095
+>>> 1== 2
+False
+2022-06-23 15:06:20.841351608
+>>>  1 < 2
+True
+2022-06-23 15:06:33.260853243
+>>>  1 < 1
+False
+2022-06-23 15:06:47.466708365
+>>>  1 >= 2
+False
+2022-06-23 15:07:03.616412432
+>>> 1>-2
+
+<interactive>:6:2: error:
+    • Variable not in scope: (>-) :: t0 -> t1 -> t
+    • Perhaps you meant one of these:
+        ‘-’ (imported from Prelude), ‘>=’ (imported from Prelude),
+        ‘>>’ (imported from Prelude)
+2022-06-23 15:07:18.870365882
+>>> 'a' < 'b'
+True
+2022-06-23 15:11:37.233485354
+>>> 'a' < 'B'
+False
+2022-06-23 15:12:00.335790142
+>>> ' ' < 'a'
+True
+2022-06-23 15:12:49.300912591
+>>> 'ab' < 'b'
+
+<interactive>:10:1: error:
+    • Syntax error on 'ab'
+      Perhaps you intended to use TemplateHaskell or TemplateHaskellQuotes
+    • In the Template Haskell quotation 'ab'
+2022-06-23 15:13:07.819234185
+>>> 1 /= 2
+True
+2022-06-23 15:16:01.109949606
+>>> 1 /= 1
+False
+2022-06-23 15:16:11.263062823
+>>> ;info abs
+
+<interactive>:13:2: error:
+    Parse error: module header, import declaration
+    or top-level declaration expected.
+2022-06-23 15:30:17.021731962
+>>> :info abs
+type Num :: * -> Constraint
+class Num a where
+  ...
+  abs :: a -> a
+  ...
+  	-- Defined in ‘GHC.Num’
+2022-06-23 15:30:38.437277516
+>>> abs
+
+<interactive>:15:1: error:
+    • No instance for (Show (Integer -> Integer))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+2022-06-23 15:30:49.112721551
+>>> abs (-234)
+234
+2022-06-23 15:34:58.324721627
+>>> GHCi, version 9.0.2: https://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /home/risa/bprog2022/.ghci
+2022-06-30 14:57:20.044274047
+>>> [ x ^ 2 | x <- [1 .. 5]　]
+[1,4,9,16,25]
+2022-06-30 15:01:57.559340456
+>>> [ x * | x <- [1 .. 5] ]
+
+<interactive>:2:3: error:
+    A section must be enclosed in parentheses thus: (x *)
+2022-06-30 15:12:32.977847058
+>>> map (^2) [1 .. 5]
+[1,4,9,16,25]
+2022-06-30 15:13:17.527768227
+>>> [ x `div` 2 | x <- [1 ..5]]
+[0,1,1,2,2]
+2022-06-30 15:14:13.311518044
+>>> [ x `divMod` 2 | x <- [1 ..5 ]]
+[(0,1),(1,0),(1,1),(2,0),(2,1)]
+2022-06-30 15:16:09.353133394
+>>> [ ( x, y ) \ x <- "abc" , y <- [4,5] 
+
+<interactive>:6:16: error:
+    parse error on input ‘<-’
+    Perhaps this statement should be within a 'do' block?
+2022-06-30 15:21:18.657296192
+>>> myconcat
+
+<interactive>:7:1: error:
+    • Variable not in scope: myconcat
+    • Perhaps you meant one of these:
+        ‘mconcat’ (imported from Prelude), ‘concat’ (imported from Prelude)
+2022-06-30 15:27:49.01895495
+>>> :e src/First.hs
+   1  module First where
+   2  
+   3  double :: Int -> Int
+   4  double x = x + x
+   5  
+   6  quadruple :: Int -> Int
+   7  quadruple x = double (double x)
+   8  
+   9  factorial ::Integer -> Integer
+  10  factorial n = product [1 .. n]
+  11  
+  12  average :: [Int] -> Int
+  13  average xs = sum xs `div` length xs
+  14  
+  15  ave :: [Int] -> Int 
+  16  ave xs = div (sum xs) (length xs)
+  17  
+  18  myinit :: [a] -> [a]
+  19  myinit (x:[]) =[]
+  20  myinit (x:xs) = x : (init xs)
+  21  
+  22  myconcat :: [[a]] -> [a]
+  23  myconcat xss = [ x | xs <- xss, x <- xs]
+Ok, no modules loaded.
+2022-06-30 15:29:47.676587508
+>>> :l src/First.hs
+[1 of 1] Compiling First            ( src/First.hs, interpreted )
+Ok, one module loaded.
+2022-06-30 15:29:47.759578986
+>>> myconcat
+
+<interactive>:10:1: error:
+    • No instance for (Show ([[a0]] -> [a0]))
+        arising from a use of ‘print’
+        (maybe you haven't applied a function to enough arguments?)
+    • In a stmt of an interactive GHCi command: print it
+2022-06-30 15:30:17.481724922
+>>> [1 | _ <- [1 .. 5] ]
+[1,1,1,1,1]
+2022-06-30 15:47:42.274102483
+>>> :e
+   1  module First where
+   2  
+   3  double :: Int -> Int
+   4  double x = x + x
+   5  
+   6  quadruple :: Int -> Int
+   7  quadruple x = double (double x)
+   8  
+   9  factorial ::Integer -> Integer
+  10  factorial n = product [1 .. n]
+  11  
+  12  average :: [Int] -> Int
+  13  average xs = sum xs `div` length xs
+  14  
+  15  ave :: [Int] -> Int 
+  16  ave xs = div (sum xs) (length xs)
+  17  
+  18  myinit :: [a] -> [a]
+  19  myinit (x:[]) =[]
+  20  myinit (x:xs) = x : (init xs)
+  21  
+  22  myconcat :: [[a]] -> [a]
+  23  myconcat xss = [ x | xs <- xss, x <- xs]
+  24  
+  25  mylength :: [a] -> Int
+  26  mylength xs = sum [1 | _ <- xs]
+[1 of 1] Compiling First            ( src/First.hs, interpreted )
+Ok, one module loaded.
+2022-06-30 15:50:09.244572904
+>>> mylength ['a' .. 'z' ]
+26
+2022-06-30 15:50:45.255060398
+>>> ['a' .. 'z' ]
+"abcdefghijklmnopqrstuvwxyz"
+2022-06-30 15:51:35.520831399
+>>> ['あ' .. 'ん']
+"\12354\12355\12356\12357\12358\12359\12360\12361\12362\12363\12364\12365\12366\12367\12368\12369\12370\12371\12372\12373\12374\12375\12376\12377\12378\12379\12380\12381\12382\12383\12384\12385\12386\12387\12388\12389\12390\12391\12392\12393\12394\12395\12396\12397\12398\12399\12400\12401\12402\12403\12404\12405\12406\12407\12408\12409\12410\12411\12412\12413\12414\12415\12416\12417\12418\12419\12420\12421\12422\12423\12424\12425\12426\12427\12428\12429\12430\12431\12432\12433\12434\12435"
+2022-06-30 15:52:02.962976232
+>>> putStrln it
+
+<interactive>:16:1: error:
+    • Variable not in scope: putStrln :: [Char] -> t
+    • Perhaps you meant one of these:
+        ‘putStrLn’ (imported from Prelude),
+        ‘putStr’ (imported from Prelude)
+2022-06-30 15:53:13.656235294
+>>> putStrLn it
+あぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをん
+2022-06-30 15:53:51.935765613
+>>> :q
+Leaving GHCi.
