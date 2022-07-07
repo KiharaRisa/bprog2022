@@ -616,3 +616,45 @@ Ok, one module loaded.
 2022-06-30 15:53:51.935765613
 >>> :q
 Leaving GHCi.
+GHCi, version 9.0.2: https://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /home/risa/bprog2022/.ghci
+2022-07-07 16:05:24.822458445
+>>> :e
+No files to edit.
+2022-07-07 16:05:30.025772993
+>>> :l
+Ok, no modules loaded.
+2022-07-07 16:05:30.128579837
+>>> ord 'A'
+
+<interactive>:3:1: error:
+    • Variable not in scope: ord :: Char -> t
+    • Perhaps you meant one of these:
+        ‘or’ (imported from Prelude), ‘odd’ (imported from Prelude)
+2022-07-07 16:05:53.700725384
+>>> :e src
+catn: src: openFile: inappropriate type (is a directory)
+2022-07-07 16:06:56.022163157
+>>> :l src
+target ‘src’ is not a module name or a source file
+2022-07-07 16:06:56.052457782
+>>> :e src/Caesar.hs
+   1  module Caesar where
+   2  
+   3  import Data.Char
+Ok, no modules loaded.
+2022-07-07 16:07:29.398680299
+>>> :l src/Caesar.hs
+[1 of 1] Compiling Caesar           ( src/Caesar.hs, interpreted )
+Ok, one module loaded.
+2022-07-07 16:07:29.477975961
+>>> ord 'A'
+65
+2022-07-07 16:07:46.09473937
+>>> ord 'a'
+97
+2022-07-07 16:07:56.984446427
+>>> import Data.Char
+2022-07-07 16:11:51.6926187
+>>> :q
+Leaving GHCi.
